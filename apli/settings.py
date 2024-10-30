@@ -11,25 +11,25 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+from datetime import timedelta
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-h$3ti)p2r_$g^d(py1yg!)jtkj2ns=-v%)0&0%3%6aimo_$@*="
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-h$3ti)p2r_$g^d(py1yg!)jtkj2ns=-v%)0&0%3%6aimo_$@*=")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 # Application definition
-
 BASE_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,17 +40,20 @@ BASE_APPS = [
 ]
 
 THIRD_APPS = [
-    'rest_framework',
+    "rest_framework",
+    "corsheaders",  # Para permitir solicitudes desde React u otros dominios en desarrollo
 ]
 
 OWN_APPS = [
-    'prueba'
+    "prueba",
 ]
+
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + OWN_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",  # CORS Middleware para solicitudes externas
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -59,6 +62,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "apli.urls"
+
+# CORS configuration for development
+CORS_ALLOW_ALL_ORIGINS = True  # Cambiar a False en producción y definir dominios específicos
 
 TEMPLATES = [
     {
@@ -78,22 +84,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "apli.wsgi.application"
 
-
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'prueba',
-        'USER': 'root',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': env("DB_NAME", default="prueba"),
+        'USER': env("DB_USER", default="root"),
+        'PASSWORD': env("DB_PASSWORD", default="12345678"),
+        'HOST': env("DB_HOST", default="localhost"),
+        'PORT': env("DB_PORT", default="3306"),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -109,25 +115,37 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Permitir acceso público
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # No incluyas JWTAuthentication aquí si no deseas requerir autenticación
+        'rest_framework.authentication.SessionAuthentication',
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Duración del token de acceso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Duración del token de refresco
+    'ROTATE_REFRESH_TOKENS': True,                   # Rotación de tokens de refresco
+    'BLACKLIST_AFTER_ROTATION': True,                 # Invalida el token de refresco antiguo
+}
+
+# Static and media files configuration
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
+LANGUAGE_CODE = "es-mx"
+TIME_ZONE = "America/Mexico_City"
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "static/"
-
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -1,1 +1,4 @@
-from .eventos import EventoViewSet
+from .registro_horas import RegistroHorarioViewSet
+from .usuarios import UsuarioViewSet
+from .solicitudes import SolicitudJustificanteViewSet
+from .CustomTokenObtainPairView import CustomTokenObtainPairView
