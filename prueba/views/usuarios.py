@@ -19,4 +19,3 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset=Usuario.objects.all()
     serializer_class = UsuarioModelSerializer
     filterset_class = UsuarioFilter
-    permission_classes = (AllowAny,)  

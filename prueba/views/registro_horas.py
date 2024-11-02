@@ -19,4 +19,3 @@ class RegistroHorarioViewSet(viewsets.ModelViewSet):
     queryset=RegistroHorario.objects.all()
     serializer_class = RegistroHorarioModelSerializer
     filterset_class = RegistroHorarioFilter
-    permission_classes = (AllowAny,)

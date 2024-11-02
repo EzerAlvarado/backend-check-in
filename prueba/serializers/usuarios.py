@@ -1,8 +1,4 @@
-"""Evento serializers."""
-
-# Django
-from django.db.models import Q
-from django.contrib.auth.hashers import make_password
+# Evento serializers.
 
 # Django REST Framework
 from rest_framework import serializers
@@ -21,16 +17,19 @@ class UsuarioModelSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'nombre',
-            'clave',
+            'clave',       # Usado como nombre de usuario
             'es_admin',
-            'password',  
+            'password',    # Solo se usa para escribir, no para leer
         )
-        read_only_fields = ('id',) 
-        
+        read_only_fields = ('id',)
+        extra_kwargs = {'password': {'write_only': True}}  # Evitar exponer el password en la respuesta
+
     def create(self, validated_data):
         """Crear un nuevo usuario, encriptando su contraseña."""
+        password = validated_data.pop('password', None)
         usuario = Usuario(**validated_data)
-        usuario.set_password(validated_data['password'])  # Usar el método para establecer la contraseña
+        if password:
+            usuario.set_password(password)  # Encripta la contraseña
         usuario.save()
         return usuario
 
@@ -41,7 +40,7 @@ class UsuarioModelSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
 
         if password:
-            instance.set_password(password)  # Usar el método para establecer la nueva contraseña
+            instance.set_password(password)  # Encripta la nueva contraseña
 
         instance.save()
         return instance

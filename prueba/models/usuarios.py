@@ -8,6 +8,9 @@ class Usuario(AbstractUser):
     clave = models.IntegerField(null=True, blank=True, unique=True, help_text='Clave de acceso única')
     es_admin = models.BooleanField(default=False, help_text='Indica si el usuario tiene privilegios de administrador')
     nombre = models.CharField(max_length=150, null=True, blank=True, help_text='Nombre completo del usuario')
+    
+    USERNAME_FIELD = 'clave'  
+    REQUIRED_FIELDS = ['username'] 
 
     class Meta:
         db_table = 'usuarios'

@@ -19,4 +19,3 @@ class SolicitudJustificanteViewSet(viewsets.ModelViewSet):
     queryset=SolicitudJustificante.objects.all()
     serializer_class = SolicitudJustificanteModelSerializer
     filterset_class = SolicitudJustificanteFilter
-    permission_classes = (AllowAny,)
