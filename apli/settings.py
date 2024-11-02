@@ -42,6 +42,7 @@ BASE_APPS = [
 THIRD_APPS = [
     "rest_framework",
     "corsheaders",  # Para permitir solicitudes desde React u otros dominios en desarrollo
+    "drf_yasg",
 ]
 
 OWN_APPS = [
