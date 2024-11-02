@@ -8,6 +8,7 @@ from rest_framework import serializers
 
 # Models
 from prueba.models import SolicitudJustificante
+from prueba.models import Usuario
 
 class SolicitudJustificanteModelSerializer(serializers.ModelSerializer):
     """
@@ -26,3 +27,24 @@ class SolicitudJustificanteModelSerializer(serializers.ModelSerializer):
             'usuario_que_registra',
         )        
         read_only_fields = ('id',)
+        
+    def validate_clave_empleado(self, value):
+        if not value:
+            raise serializers.ValidationError("La clave del empleado es obligatoria.")
+        return value
+
+    def create(self, validated_data):
+        clave_empleado = validated_data.get('clave_empleado')
+        print(clave_empleado)
+
+        # Verificar si el usuario existe
+        try:
+            usuario = Usuario.objects.get(clave=clave_empleado)
+        except Usuario.DoesNotExist:
+            raise serializers.ValidationError("No existe un usuario con esta clave.")
+
+        # Asignar el usuario que registra
+        validated_data['usuario_que_registra'] = usuario
+
+        # Crear y devolver el registro
+        return SolicitudJustificante.objects.create(**validated_data)

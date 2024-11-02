@@ -9,7 +9,6 @@ from rest_framework import viewsets
 from prueba.serializers.solicitudes import SolicitudJustificanteModelSerializer
 #filters
 from prueba.filters.solicitudes import SolicitudJustificanteFilter
-from rest_framework.permissions import AllowAny
 
 class SolicitudJustificanteViewSet(viewsets.ModelViewSet):
     """

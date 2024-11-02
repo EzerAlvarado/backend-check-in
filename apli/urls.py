@@ -34,18 +34,3 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 ]
-# from prueba import views
-
-# # Configuración del router
-# router = DefaultRouter()
-# router.register('registro-horas', views.RegistroHorarioViewSet)
-# router.register('solicitudes', views.SolicitudJustificanteViewSet)
-# router.register('usuarios', views.UsuarioViewSet)
-
-# # Configuración de las URLs
-# urlpatterns = [
-#     path("admin/", admin.site.urls),  # URL para el panel de administración
-#     path("api/", include(router.urls)),  # Incluye las rutas del router bajo el prefijo 'api/'
-#     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-#     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-# ]

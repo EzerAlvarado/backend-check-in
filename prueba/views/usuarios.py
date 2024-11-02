@@ -9,7 +9,6 @@ from rest_framework import viewsets
 from prueba.serializers.usuarios import UsuarioModelSerializer
 #filters
 from prueba.filters.usuarios import UsuarioFilter
-from rest_framework.permissions import AllowAny
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     """

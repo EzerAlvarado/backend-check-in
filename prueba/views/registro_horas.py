@@ -9,7 +9,6 @@ from rest_framework import viewsets
 from prueba.serializers.registro_horas import RegistroHorarioModelSerializer
 #filters
 from prueba.filters.registro_horas import RegistroHorarioFilter
-from rest_framework.permissions import AllowAny
 
 class RegistroHorarioViewSet(viewsets.ModelViewSet):
     """

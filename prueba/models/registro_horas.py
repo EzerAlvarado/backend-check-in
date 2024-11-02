@@ -43,4 +43,4 @@ class RegistroHorario(models.Model):
         ]
 
     def __str__(self):
-        return f"Pk: {self.pk} | : {self.nombre} | Clave Usuario: {self.clave}"
+        return f"Pk: {self.pk} | Clave Usuario: {self.clave_empleado} | Hora De Entrada : {self.hora_entrada}  | Hora De Salida : {self.hora_salida} "
