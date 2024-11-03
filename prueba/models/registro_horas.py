@@ -25,12 +25,12 @@ class RegistroHorario(models.Model):
         choices=OPCIONES_ESTADO,
     )
     
-    usuario_que_registra = models.ForeignKey("prueba.Usuario",
-                                             null=True,
-                                             blank=True,
-                                             related_name='registros_de_horas',
-                                             help_text='Relacion al empleaod que hizo el registro, se va a relacionar con la clave que se ortorga ',
-                                             on_delete=models.DO_NOTHING)
+    total_horas = models.DurationField(null=True, blank=True, help_text='Total de horas trabajadas')
+
+    
+    usuario_que_registra = models.ForeignKey("prueba.Usuario", null=True, blank=True, related_name='registros_de_horas',
+                                            help_text='Relacion al empleaod que hizo el registro, se va a relacionar con la clave que se ortorga ',
+                                            on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'registros_de_horas'

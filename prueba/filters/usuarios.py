@@ -8,7 +8,7 @@ from prueba.models import Usuario
 
 
 class UsuarioFilter(filters.FilterSet):
-
+    clave = filters.NumberFilter(lookup_expr='exact')
     class Meta:
         model = Usuario
         fields = (
@@ -16,4 +16,4 @@ class UsuarioFilter(filters.FilterSet):
             'nombre',
             'clave',
             'es_admin',
-        )        
+        )

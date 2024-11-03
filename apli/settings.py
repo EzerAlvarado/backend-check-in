@@ -43,6 +43,7 @@ THIRD_APPS = [
     "rest_framework",
     "corsheaders",  # Para permitir solicitudes desde React u otros dominios en desarrollo
     "drf_yasg",
+    "django_filters",
 ]
 
 OWN_APPS = [
@@ -117,6 +118,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 SIMPLE_JWT = {

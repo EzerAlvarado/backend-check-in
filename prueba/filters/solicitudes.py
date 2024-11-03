@@ -8,7 +8,7 @@ from prueba.models import SolicitudJustificante
 
 
 class SolicitudJustificanteFilter(filters.FilterSet):
-
+    clave_empleado = filters.NumberFilter(lookup_expr='exact')
     class Meta:
         model = SolicitudJustificante
         fields = (

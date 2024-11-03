@@ -24,6 +24,7 @@ class RegistroHorarioModelSerializer(serializers.ModelSerializer):
             'clave_empleado',
             'hora_salida',
             'llego_tarde',
+            'total_horas',
             'se_cancela_su_dia',
             'estado_registro',
             'usuario_que_registra',
