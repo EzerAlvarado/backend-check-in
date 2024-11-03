@@ -15,5 +15,6 @@ class UsuarioFilter(filters.FilterSet):
             'id',
             'nombre',
             'clave',
+            'contrasenia',
             'es_admin',
         )

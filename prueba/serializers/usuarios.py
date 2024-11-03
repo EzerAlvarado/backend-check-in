@@ -19,6 +19,7 @@ class UsuarioModelSerializer(serializers.ModelSerializer):
             'nombre',
             'clave',       # Usado como nombre de usuario
             'es_admin',
+            'contrasenia',
             'password',    # Solo se usa para escribir, no para leer
         )
         read_only_fields = ('id',)
