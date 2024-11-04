@@ -18,7 +18,7 @@ class SolicitudJustificante(models.Model):
     
     clave_empleado = models.IntegerField(null=True,blank=True,help_text='Clave del empleado que quiere justificar')
     
-    evidencia_pdf = models.FileField(upload_to='documentos_pdfs/')
+    evidencia_pdf = models.FileField(null=True, blank=True ,upload_to='documentos_pdfs/')
 
     usuario_que_registra = models.ForeignKey("prueba.Usuario",
                                              null=True,
