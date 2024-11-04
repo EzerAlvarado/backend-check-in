@@ -66,6 +66,7 @@ class RegistroHorarioModelSerializer(serializers.ModelSerializer):
         instance.clave_empleado = validated_data.get('clave_empleado', instance.clave_empleado)
         instance.hora_entrada = validated_data.get('hora_entrada', instance.hora_entrada)
         instance.hora_salida = validated_data.get('hora_salida', instance.hora_salida)
+        instance.total_horas = validated_data.get('total_horas', instance.total_horas) #Agregado
         instance.llego_tarde = validated_data.get('llego_tarde', instance.llego_tarde)
         instance.se_cancela_su_dia = validated_data.get('se_cancela_su_dia', instance.se_cancela_su_dia)
         instance.estado_registro = validated_data.get('estado_registro', instance.estado_registro)

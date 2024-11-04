@@ -25,7 +25,7 @@ class RegistroHorario(models.Model):
         choices=OPCIONES_ESTADO,
     )
     
-    total_horas = models.DurationField(null=True, blank=True, help_text='Total de horas trabajadas')
+    total_horas = models.CharField(max_length=150,null=True, blank=True, help_text='Total de horas trabajadas')
 
     
     usuario_que_registra = models.ForeignKey("prueba.Usuario", null=True, blank=True, related_name='registros_de_horas',

@@ -1,5 +1,22 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import BaseUserManager  #Agregado
+
+# CLASE AGREGADA Agregado
+class UsuarioManager(BaseUserManager):
+    def create_user(self, clave, password=None, **extra_fields):
+        if not clave:
+            raise ValueError('El usuario debe tener una clave.')
+        
+        user = self.model(clave=clave, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, clave, password=None, **extra_fields):
+        extra_fields.setdefault('es_admin', True)
+        return self.create_user(clave, password, **extra_fields)
+
 
 class Usuario(AbstractUser):
     """
@@ -14,6 +31,7 @@ class Usuario(AbstractUser):
     USERNAME_FIELD = 'clave'  
     REQUIRED_FIELDS = [] 
 
+    objects = UsuarioManager() # Asigna el manager personalizado
     class Meta:
         db_table = 'usuarios'
         ordering = ['pk']

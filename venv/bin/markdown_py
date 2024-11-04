@@ -1,4 +1,4 @@
-#!/Users/ezerjehualvarado/Documents/GitHub/entorno2/venv/bin/python
+#!/Users/ezerjehualvarado/Documents/GitHub/App_Registro_Entrada_Salida/BackEnd3/backend-check-in/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
