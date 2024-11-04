@@ -23,6 +23,7 @@ class SolicitudJustificanteModelSerializer(serializers.ModelSerializer):
             'estado_solicitud',
             'motivo',
             'dia_justificar',
+            'evidencia_pdf',
             'clave_empleado',
             'usuario_que_registra',
         )        
