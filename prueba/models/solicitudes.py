@@ -25,7 +25,7 @@ class SolicitudJustificante(models.Model):
                                              blank=True,
                                              related_name='solicitudes_justificantes',
                                              help_text='Relacion al empleaod que hizo el justificante, se va a relacionar con la clave que se ortorga ',
-                                             on_delete=models.DO_NOTHING)
+                                             on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'solicitudes_justificantes'

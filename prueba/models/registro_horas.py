@@ -30,7 +30,7 @@ class RegistroHorario(models.Model):
     
     usuario_que_registra = models.ForeignKey("prueba.Usuario", null=True, blank=True, related_name='registros_de_horas',
                                             help_text='Relacion al empleaod que hizo el registro, se va a relacionar con la clave que se ortorga ',
-                                            on_delete=models.DO_NOTHING)
+                                            on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'registros_de_horas'
